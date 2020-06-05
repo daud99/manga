@@ -7,9 +7,12 @@ var backdrop = document.querySelector(".backdrop");
 var error_model = document.querySelector(".model");
 var card = document.querySelector(".card");
 var selectedCard = document.querySelector(".card-input");
+var player1Heading = document.querySelector(".player-div__1 .player-heading");
+var player2Heading= document.querySelector(".player-div__2 .player-heading");
 
 var rand, current_card, current_player;
 init();
+
 play.addEventListener("click", function() {
     if(!gameState) {
         gameState = true;
@@ -23,8 +26,6 @@ play.addEventListener("click", function() {
              if (selectedCard.value.toUpperCase() === current_card) {
                  document.querySelector(".player-heading__sm").textContent = "player " + current_player;
                  if (window.innerWidth <= 850) {
-                     error_model.style.display = "block";
-                     backdrop.style.display = "block";
                      showDialog(false, "HURRAY!", "Player " + current_player + " WON!");
                  } else {
                      var winner = retrunElement(".player-div__" + current_player + " .player-heading");
@@ -47,7 +48,7 @@ play.addEventListener("click", function() {
         }
     } else {
         showDialog(true, "ERROR","To play again start new game.");
-        gameState = false;
+        // gameState = false;
     }
 });
 
@@ -69,13 +70,13 @@ function init() {
     if (window.innerWidth <= 850) {
         document.querySelector(".player-heading__sm").textContent = "player " + (current_player);
     } else {
-        retrunElement(".player-div__1 .player-heading").classList.remove("mark");
-        retrunElement(".player-div__2 .player-heading").classList.remove("mark");
+        player1Heading.classList.remove("mark");
+        player2Heading.classList.remove("mark");
         retrunElement(".player-div__" + current_player + " .player-heading").classList.add("mark");
-        retrunElement(".player-div__1 .player-heading").textContent = 'player 1';
-        retrunElement(".player-div__2 .player-heading").textContent = 'player 2';
-        retrunElement(".player-div__1 .player-heading").style.color = "#D4AF37";
-        retrunElement(".player-div__2 .player-heading").style.color = "#D4AF37";
+        player1Heading.textContent = 'player 1';
+        player2Heading.textContent = 'player 2';
+        player1Heading.style.color = "#D4AF37";
+        player2Heading.style.color = "#D4AF37";
     }
     card.style.display = "none";
     gameState = false;
@@ -97,20 +98,13 @@ function showDialog(icon, title="", description="") {
 document.querySelector(".game-heading").addEventListener("click", init);
 
 document.querySelector(".help-icon__sm").addEventListener("click", function(){
-    // alert("hello");
     showDialog(false, "HELP!", "You have to select the card such as<br> King Diamonds = KD <br> ACE HEARTS = AH <br> Three Spade = 3S");
 
 });
 
 document.querySelector("#help-icon").addEventListener("click", function(){
-    // alert("lolz");
     showDialog(false, "HELP!", "You have to select the card such as<br> King Diamonds = KD <br> ACE HEARTS = AH <br> Three Spade = 3S");
 });
-
-
-// document.querySelector(".help-icon__sm").addEventListener("click", showDialog(false, "HELP!", "You have to select the card for example<br> King Diamonds = KD <br> ACE HEARTS = AH <br> Three Spade = 3S"));
-
-// document.querySelector("#help-icon").addEventListener("click", showDialog(false, "HELP!", "You have to select the card for example<br> King Diamonds = KD <br> ACE HEARTS = AH <br> Three Spade = 3S"));
 
 function retrunElement(clas) {
     return document.querySelector(clas);
